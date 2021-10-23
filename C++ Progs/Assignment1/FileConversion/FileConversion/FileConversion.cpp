@@ -139,7 +139,7 @@ void readCppWriteHTML(string readPath, string writePath)
             HTMLFile.open(writePath);
             if (HTMLFile.is_open())
             {
-                HTMLFile << "&lt;PRE&gt;" << endl;
+                HTMLFile << "<PRE>" << endl;
                 while (!cppFile.eof()) //loop to end of cpp file
                 {
                     getline(cppFile, line);
@@ -159,10 +159,10 @@ void readCppWriteHTML(string readPath, string writePath)
                             HTMLFile << lineChar;
                         }
                     }
-                    HTMLFile << "<br>" << endl; //I wasn't sure if the <br> is necessary, but I'm going off this line in the assignment
+                    HTMLFile << endl; //I wasn't sure if the <br> is necessary, but I'm going off this line in the assignment
                                                 //"You can test your output file by opening it with a web browser. The contents should appear identical to the original source code
                 }
-                HTMLFile << "&lt;/PRE&gt;";
+                HTMLFile << "</PRE>";
                 HTMLFile.close(); //make sure to close file
             }
             else
