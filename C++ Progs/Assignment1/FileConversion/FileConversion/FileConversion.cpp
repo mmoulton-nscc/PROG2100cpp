@@ -7,7 +7,7 @@
 #include <regex>
 using namespace std;
 
-bool validCpp(string str);
+boo validCpp(string str);
 bool validHTML(string str);
 bool testOpen(string readPath, string writePath);
 void readCppWriteHTML(string readPath, string writePath);
