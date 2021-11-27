@@ -5,7 +5,10 @@
 #include <algorithm>
 #include <numeric>
 #include <iostream>
-
+#include <cstdio>
+#include <sstream>
+#include <vector>
+#include <regex>
 using namespace std;
 
 class RationalNumber
@@ -25,12 +28,12 @@ public:
 	//methods
 	void setNumbers(int nume, int denom);
 	void fractionifiy();
-	void updateNumbers();
 	int getNumerator();
 	int getDenominator();
 	string getFraction();
 	void reduceFraction();
 	string reduceFraction(int nume, int denom);
+	//vector<string> split(const string& input);
 
 
 	//overloaded operators
@@ -38,6 +41,8 @@ public:
 	RationalNumber operator-(const RationalNumber& b);
 	RationalNumber operator*(const RationalNumber& b);
 	RationalNumber operator/(const RationalNumber& b);
+	void operator=(const RationalNumber& b);
+	void operator+=(const RationalNumber& b);
 
 	bool operator>(const RationalNumber& b);
 	bool operator<(const RationalNumber& b);
