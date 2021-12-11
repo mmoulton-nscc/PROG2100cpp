@@ -21,6 +21,8 @@ namespace AsteroidField
         private int yVelocity = 0;
         private int rotation = 0;
 
+        private bool mini = false;
+
 
         private Rectangle displayRect;
         private Image image;
@@ -46,13 +48,20 @@ namespace AsteroidField
                 posY = random.Next(-59, canvas.Height + 60);
             }
 
-            xVelocity = random.Next(-maxSpeed, maxSpeed);
-            yVelocity = random.Next(-maxSpeed, maxSpeed);
+            while (xVelocity == 0)
+            {
+                xVelocity = random.Next(-maxSpeed, maxSpeed);
+            }
+            while (yVelocity == 0)
+            {
+                yVelocity = random.Next(-maxSpeed, maxSpeed);
+            }
             rotation = random.Next(1, 360);
             image = RotateImage(image, rotation);
-
+            
             displayRect = new Rectangle(posX, posY, width, height);
         }
+
         internal void Draw(Graphics graphics)
         {
             graphics.DrawImage(image, displayRect);

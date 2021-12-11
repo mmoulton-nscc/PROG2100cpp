@@ -243,10 +243,6 @@ namespace AsteroidField
             yVelocity = 0;
         }
 
-        internal void Shoot()
-        {
-        }
-
         internal void Move()
         {
             //horizontal movement
@@ -276,14 +272,29 @@ namespace AsteroidField
             }
         }
 
-
+        public Rectangle getRect()
+        {
+            return this.displayRect;
+        }
+        public int getXvel()
+        {
+            return this.xVelocity;
+        }
+        public int getYvel()
+        {
+            return this.yVelocity;
+        }
+        public int getRot()
+        {
+            return this.rotation;
+        }
 
         //https://stackoverflow.com/questions/2163829/how-do-i-rotate-a-picture-in-winforms
         internal static Image RotateImage(Image img, float rotationAngle)
         {
             //create an empty Bitmap image
             Bitmap bmp = new Bitmap(img.Width, img.Height);
-            //bmp.SetResolution(img.HorizontalResolution, img.VerticalResolution);
+            bmp.SetResolution(img.HorizontalResolution, img.VerticalResolution);
 
             //turn the Bitmap into a Graphics object
             Graphics gfx = Graphics.FromImage(bmp);

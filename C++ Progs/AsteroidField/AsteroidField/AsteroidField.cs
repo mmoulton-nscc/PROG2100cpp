@@ -14,10 +14,13 @@ namespace AsteroidField
     {
         //properties
         Player player;
-       private int asteroidMax = 5;
+        private int asteroidMax = 15;
 
         //declare field of asteroids
         HashSet<Asteroid> astfield = new HashSet<Asteroid>();
+
+        //declare pool of bullets
+        HashSet<Bullet> bulletPool = new HashSet<Bullet>();
 
 
         public AsteroidField()
@@ -40,7 +43,7 @@ namespace AsteroidField
             {
                 case Keys.Space:
                     {
-                        player.Shoot();
+                        SpawnBullet();
                         break;
                     }
                 case Keys.Left:
@@ -95,6 +98,15 @@ namespace AsteroidField
                 asteroid.Draw(graphics);
                 
             }
+            foreach (var bullet in bulletPool)
+            {
+                bullet.Draw(graphics);
+            }
+        }
+
+        private void SpawnBullet()
+        {
+            bulletPool.Add(new Bullet(this.DisplayRectangle, player.getRect(), player.getXvel(), player.getYvel(), player.getRot()));
         }
 
         private void MainGameTimerEvent(object sender, EventArgs e)
@@ -104,10 +116,10 @@ namespace AsteroidField
                 ast.Move();
             }
 
-            //foreach (var bullet in bulletPool)
-            //{
-            //    bullet.Move();
-            //}
+            foreach (var bullet in bulletPool)
+            {
+                bullet.Move();
+            }
 
             player.Move();
 
