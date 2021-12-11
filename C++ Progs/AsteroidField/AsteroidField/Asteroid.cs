@@ -23,8 +23,9 @@ namespace AsteroidField
 
         private bool mini = false;
 
+        public bool destroy = false;
 
-        private Rectangle displayRect;
+        public Rectangle displayRect;
         private Image image;
 
         public Asteroid(Rectangle canvas, int num)
@@ -89,6 +90,11 @@ namespace AsteroidField
                 this.displayRect.Y = 59 + this.Canvas.Height;
             }
 
+        }
+
+        internal void destroyObject()
+        {
+            this.destroy = true;
         }
 
         //https://stackoverflow.com/questions/2163829/how-do-i-rotate-a-picture-in-winforms

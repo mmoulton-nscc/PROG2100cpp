@@ -16,6 +16,11 @@ namespace AsteroidField
         Player player;
         private int asteroidMax = 15;
 
+        private int score = 0;
+
+        private bool gameOver = false;
+        private bool continueable = false;
+
         //declare field of asteroids
         HashSet<Asteroid> astfield = new HashSet<Asteroid>();
 
@@ -40,10 +45,13 @@ namespace AsteroidField
         private void AsteroidField_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
-            {
+            { 
                 case Keys.Space:
                     {
-                        SpawnBullet();
+                        if (!gameOver)
+                        {
+                            SpawnBullet();
+                        }
                         break;
                     }
                 case Keys.Left:
@@ -78,6 +86,11 @@ namespace AsteroidField
                     }
                 case Keys.Enter:
                     {
+                        if (gameOver && continueable)
+                        {
+                            txtScore.Text = "Score: " + (score);
+                            gameOver = false;
+                        }
                         break;
                     }
 
@@ -92,7 +105,10 @@ namespace AsteroidField
         private void AsteroidField_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            player.Draw(graphics);
+            if (!gameOver)
+            {
+                player.Draw(graphics);
+            }
             foreach (var asteroid in astfield)
             {
                 asteroid.Draw(graphics);
@@ -109,10 +125,13 @@ namespace AsteroidField
             bulletPool.Add(new Bullet(this.DisplayRectangle, player.getRect(), player.getXvel(), player.getYvel(), player.getRot()));
         }
 
+
+
         private void MainGameTimerEvent(object sender, EventArgs e)
         {
             foreach (var ast in astfield)
             {
+                CheckCollision(ast);
                 ast.Move();
             }
 
@@ -123,15 +142,87 @@ namespace AsteroidField
 
             player.Move();
 
+            astfield.RemoveWhere(DestroyAsteroids);
+            bulletPool.RemoveWhere(DestroyBullets);
+
             Invalidate();
         }
 
         private void AsteroidSpawnTimer_Tick(object sender, EventArgs e)
         {
-            if (astfield.Count < asteroidMax)
+            if (astfield.Count < asteroidMax && !gameOver)
             {
                 astfield.Add(new Asteroid(this.DisplayRectangle, astfield.Count));
             }
+        }
+
+        private void CheckCollision(Asteroid asteroid)
+        {
+            if (asteroid.displayRect.IntersectsWith(player.getRect()))
+            {
+                GameOver();
+            }
+
+            foreach (var bullet in bulletPool)
+            {
+                if (asteroid.displayRect.IntersectsWith(bullet.getRect()))
+                {
+                    asteroid.destroyObject();
+                    bullet.destroyObject();
+
+                    score += 5;
+                    txtScore.Text = "Score: " + (score);
+                }
+            }
+
+            if (score == 100 && !continueable)
+            {
+                GameWin();
+            }
+        }
+
+        private bool DestroyAsteroids(Asteroid ast)
+        {
+            return ast.destroy;
+        }
+
+        private bool DestroyBullets(Bullet bullet)
+        {
+            return bullet.destroy;
+        }
+
+        private void GameOver()
+        {
+            gameOver = true;
+            continueable = false;
+            foreach (var bullet in bulletPool)
+            {
+                bullet.destroyObject();
+            }
+
+            foreach (var asteroid in astfield)
+            {
+                asteroid.destroyObject();
+            }
+
+            txtScore.Text = "Final Score: " + (score) + "\nPress R to replay!";
+        }
+
+        private void GameWin()
+        {
+            gameOver = true;
+            continueable = true;
+            foreach (var bullet in bulletPool)
+            {
+                bullet.destroyObject();
+            }
+
+            foreach (var asteroid in astfield)
+            {
+                asteroid.destroyObject();
+            }
+
+            txtScore.Text = "YOU WIN!\nScore: " + (score) + "\nPress ENTER to continue or R to replay!";
         }
     }
 }

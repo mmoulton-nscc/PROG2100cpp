@@ -56,7 +56,7 @@ namespace AsteroidField
             // AsteroidSpawnTimer
             // 
             this.AsteroidSpawnTimer.Enabled = true;
-            this.AsteroidSpawnTimer.Interval = 1500;
+            this.AsteroidSpawnTimer.Interval = 1000;
             this.AsteroidSpawnTimer.Tick += new System.EventHandler(this.AsteroidSpawnTimer_Tick);
             // 
             // AsteroidField

@@ -17,6 +17,8 @@ namespace AsteroidField
         private int xVelocity = 0;
         private int yVelocity = 0;
         private int rotation = 0;
+        private int lifetime = 0;
+        public bool destroy = false;
 
         private Rectangle displayRect;
 
@@ -217,6 +219,16 @@ namespace AsteroidField
 
             }
 
+        }
+
+        internal void destroyObject()
+        {
+            this.destroy = true;
+        }
+
+        public Rectangle getRect()
+        {
+            return this.displayRect;
         }
         internal void Draw(Graphics graphics)
         {
