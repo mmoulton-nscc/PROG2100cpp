@@ -13,8 +13,8 @@ namespace AsteroidField
     {
         //properties
         private Rectangle Canvas;
-        private readonly int width = 30;
-        private readonly int height = 30;
+        private readonly int width = 15;
+        private readonly int height = 20;
 
         private readonly int speed = 10;
         private readonly int rotationSpeed = 15; //15 degrees per tick
@@ -23,9 +23,11 @@ namespace AsteroidField
         private int yVelocity = 0;
         private int rotation = 0;
 
-        private Rectangle displayRect; //used for collision detection
+        private Rectangle displayRect;
         private Image image;
         public enum Rotation {Clockwise, Counterclockwise }
+
+        
 
         //constructor
         public Player(Rectangle canvas)
@@ -34,6 +36,7 @@ namespace AsteroidField
             image = Image.FromFile("images/player.bmp");
             int posX = canvas.Width/2 - width/2;
             int posY = canvas.Height/2 - height/2;
+
 
             displayRect = new Rectangle(posX, posY, width, height);
         }
@@ -240,9 +243,16 @@ namespace AsteroidField
             yVelocity = 0;
         }
 
-        public void Move()
+        internal void Shoot()
         {
+        }
+
+        internal void Move()
+        {
+            //horizontal movement
             this.displayRect.X += xVelocity;
+
+            //wraps player around screen to other side if they go off screen
             if (this.displayRect.X > 5 + this.Canvas.Width)
             {
                 this.displayRect.X = -4;
@@ -252,7 +262,10 @@ namespace AsteroidField
                 this.displayRect.X = 4 + this.Canvas.Width;
             }
 
+            //vertical movement
             this.displayRect.Y += yVelocity;
+
+            //wraps player around screen to other side if they go off screen
             if (this.displayRect.Y > 5 + this.Canvas.Height)
             {
                 this.displayRect.Y = -4;
@@ -266,7 +279,7 @@ namespace AsteroidField
 
 
         //https://stackoverflow.com/questions/2163829/how-do-i-rotate-a-picture-in-winforms
-        public static Image RotateImage(Image img, float rotationAngle)
+        internal static Image RotateImage(Image img, float rotationAngle)
         {
             //create an empty Bitmap image
             Bitmap bmp = new Bitmap(img.Width, img.Height);

@@ -14,12 +14,10 @@ namespace AsteroidField
     {
         //properties
         Player player;
+       private int asteroidMax = 5;
 
         //declare field of asteroids
         HashSet<Asteroid> astfield = new HashSet<Asteroid>();
-
-        //declare pool of reusable bullet objects (avoids unnecessary garbage collection and new instantiation)
-        HashSet<Bullet> bulletPool = new HashSet<Bullet>();
 
 
         public AsteroidField()
@@ -34,8 +32,6 @@ namespace AsteroidField
             //instantiate Player
             player = new Player(this.DisplayRectangle);
 
-            //populate astfield
-            astfield.Add(new Asteroid(this.DisplayRectangle));
         }
 
         private void AsteroidField_KeyDown(object sender, KeyEventArgs e)
@@ -44,6 +40,7 @@ namespace AsteroidField
             {
                 case Keys.Space:
                     {
+                        player.Shoot();
                         break;
                     }
                 case Keys.Left:
@@ -66,6 +63,21 @@ namespace AsteroidField
                         player.Brakes();
                         break;
                     }
+                case Keys.Escape:
+                    {
+                        Application.Exit();
+                        break;
+                    }
+                case Keys.R:
+                    {
+                        Application.Restart();
+                        break;
+                    }
+                case Keys.Enter:
+                    {
+                        break;
+                    }
+
             }
         }
 
@@ -78,6 +90,11 @@ namespace AsteroidField
         {
             Graphics graphics = e.Graphics;
             player.Draw(graphics);
+            foreach (var asteroid in astfield)
+            {
+                asteroid.Draw(graphics);
+                
+            }
         }
 
         private void MainGameTimerEvent(object sender, EventArgs e)
@@ -87,14 +104,22 @@ namespace AsteroidField
                 ast.Move();
             }
 
-            foreach (var bullet in bulletPool)
-            {
-                bullet.Move();
-            }
+            //foreach (var bullet in bulletPool)
+            //{
+            //    bullet.Move();
+            //}
 
             player.Move();
 
             Invalidate();
+        }
+
+        private void AsteroidSpawnTimer_Tick(object sender, EventArgs e)
+        {
+            if (astfield.Count < asteroidMax)
+            {
+                astfield.Add(new Asteroid(this.DisplayRectangle, astfield.Count));
+            }
         }
     }
 }

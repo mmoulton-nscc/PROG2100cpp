@@ -83,6 +83,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\asteroid.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\player.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

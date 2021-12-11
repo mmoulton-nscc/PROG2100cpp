@@ -33,6 +33,7 @@ namespace AsteroidField
             this.components = new System.ComponentModel.Container();
             this.txtScore = new System.Windows.Forms.Label();
             this.GameTimer = new System.Windows.Forms.Timer(this.components);
+            this.AsteroidSpawnTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // txtScore
@@ -51,6 +52,12 @@ namespace AsteroidField
             this.GameTimer.Enabled = true;
             this.GameTimer.Interval = 40;
             this.GameTimer.Tick += new System.EventHandler(this.MainGameTimerEvent);
+            // 
+            // AsteroidSpawnTimer
+            // 
+            this.AsteroidSpawnTimer.Enabled = true;
+            this.AsteroidSpawnTimer.Interval = 1000;
+            this.AsteroidSpawnTimer.Tick += new System.EventHandler(this.AsteroidSpawnTimer_Tick);
             // 
             // AsteroidField
             // 
@@ -77,6 +84,7 @@ namespace AsteroidField
 
         private System.Windows.Forms.Label txtScore;
         private System.Windows.Forms.Timer GameTimer;
+        private System.Windows.Forms.Timer AsteroidSpawnTimer;
     }
 }
 
