@@ -21,6 +21,9 @@ namespace AsteroidField
         private bool gameOver = false;
         private bool continueable = false;
 
+        private MciPlayer shoot = new MciPlayer("sounds/laserShoot.wav", "1");
+        private MciPlayer explode = new MciPlayer("sounds/explosion.wav", "2");
+
         //declare field of asteroids
         HashSet<Asteroid> astfield = new HashSet<Asteroid>();
 
@@ -51,6 +54,7 @@ namespace AsteroidField
                         if (!gameOver)
                         {
                             SpawnBullet();
+                            shoot.PlayFromStart();
                         }
                         break;
                     }
@@ -160,6 +164,7 @@ namespace AsteroidField
         {
             if (asteroid.displayRect.IntersectsWith(player.getRect()))
             {
+                explode.PlayFromStart();
                 GameOver();
             }
 
@@ -169,7 +174,7 @@ namespace AsteroidField
                 {
                     asteroid.destroyObject();
                     bullet.destroyObject();
-
+                    explode.PlayFromStart();
                     score += 5;
                     txtScore.Text = "Score: " + (score);
                 }
