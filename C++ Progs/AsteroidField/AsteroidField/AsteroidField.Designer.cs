@@ -59,6 +59,7 @@ namespace AsteroidField
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1117, 817);
             this.Controls.Add(this.txtScore);
+            this.DoubleBuffered = true;
             this.Name = "AsteroidField";
             this.Text = "Asteroid Field";
             this.Load += new System.EventHandler(this.AsteroidField_Load);

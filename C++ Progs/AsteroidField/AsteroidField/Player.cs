@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +13,11 @@ namespace AsteroidField
     {
         //properties
         private Rectangle Canvas;
-        private readonly int width = 20;
-        private readonly int height = 20;
+        private readonly int width = 30;
+        private readonly int height = 30;
 
         private readonly int speed = 10;
-        private readonly int rotationSpeed = 10;
+        private readonly int rotationSpeed = 15; //15 degrees per tick
 
         private int xVelocity = 0;
         private int yVelocity = 0;
@@ -29,7 +31,7 @@ namespace AsteroidField
         public Player(Rectangle canvas)
         {
             this.Canvas = canvas;
-            image = Image.FromFile("images/player.png");
+            image = Image.FromFile("images/player.bmp");
             int posX = canvas.Width/2 - width/2;
             int posY = canvas.Height/2 - height/2;
 
@@ -38,7 +40,7 @@ namespace AsteroidField
 
         internal void Draw(Graphics graphics)
         {
-            graphics.FillRectangle(new SolidBrush(Color.White), displayRect);
+            graphics.DrawImage(image, displayRect);
         }
 
         internal void Rotate(Rotation rotate)
@@ -48,18 +50,23 @@ namespace AsteroidField
                  case Rotation.Clockwise:
                     {
                         rotation += rotationSpeed;
-                        if (rotation > 360)
+                        image = RotateImage(image, rotationSpeed);
+                        if (rotation >= 360)
                         {
                             rotation = 0;
+                            image = Image.FromFile("images/player.bmp"); //continued rotation shrinks and darkens image, so refresh to original image after rotating so much
                         }
                         break;
                     }
                  case Rotation.Counterclockwise:
                     {
                         rotation -= rotationSpeed;
-                        if (rotation < 0)
+
+                        image = RotateImage(image, -rotationSpeed);
+                        if (rotation <= 0)
                         {
                             rotation = 360;
+                            image = Image.FromFile("images/player.bmp"); //continued rotation shrinks and darkens image, so refresh to original image after rotating so much
                         }
                         break;
                     }
@@ -254,6 +261,40 @@ namespace AsteroidField
             {
                 this.displayRect.Y = 4 + this.Canvas.Height;
             }
+        }
+
+
+
+        //https://stackoverflow.com/questions/2163829/how-do-i-rotate-a-picture-in-winforms
+        public static Image RotateImage(Image img, float rotationAngle)
+        {
+            //create an empty Bitmap image
+            Bitmap bmp = new Bitmap(img.Width, img.Height);
+            //bmp.SetResolution(img.HorizontalResolution, img.VerticalResolution);
+
+            //turn the Bitmap into a Graphics object
+            Graphics gfx = Graphics.FromImage(bmp);
+
+            //now we set the rotation point to the center of our image
+            gfx.TranslateTransform((float)bmp.Width / 2, (float)bmp.Height / 2);
+
+            //now rotate the image
+            gfx.RotateTransform(rotationAngle);
+
+            gfx.TranslateTransform(-(float)bmp.Width / 2, -(float)bmp.Height / 2);
+
+            //set the InterpolationMode to HighQualityBicubic so to ensure a high
+            //quality image once it is transformed to the specified size
+            gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+            //now draw our new image onto the graphics object
+            gfx.DrawImage(img, new Point(0, 0));
+
+            //dispose of our Graphics object
+            gfx.Dispose();
+
+            //return the image
+            return bmp;
         }
     }
 }
