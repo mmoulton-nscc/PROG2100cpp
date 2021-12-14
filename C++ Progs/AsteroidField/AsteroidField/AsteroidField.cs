@@ -16,16 +16,18 @@ namespace AsteroidField
         /*
          * ASTEROID FIELD
          * An arcade game where you play as a spaceship flying around an asteroid field.
-         * Press left and right to rotate, and Up to thrust forwards. You will continue to move in that direction until you thrust in the opposite direction or brake with down.
+         * Press left and right to rotate, and Up to thrust forwards. 
+         * You will continue to move in that direction until you thrust in the opposite direction or brake with down.
          * Shoot with spacebar to destroy asteroids and increase your score!
          */
 
         /*
          * DOUBLE BUFFERING
          * Uses a second buffer so that reading and writing of data can be done separately instead of by a single buffer.
-         * What this means for our game is that one buffer can render a new frame while another buffer is displaying the previously completed frame to the screen.
-         * This increases the smoothness of the animation because with a single buffer, when the buffer begins to render a new frame it starts from scratch.
-         * Meaning the screen will appear to flicker while the new frame is rendered.
+         * What this means for our game is that one buffer can render a new frame while another buffer is displaying
+         * the previously completed frame to the screen.
+         * This increases the smoothness of the animation because with a single buffer, when the buffer begins to render 
+         * a new frame it starts from scratch, meaning the screen will appear to flicker while the new frame is rendered.
          */
 
         /*
@@ -38,7 +40,7 @@ namespace AsteroidField
 
         //properties
         Player player;
-        private int asteroidMax = 15;
+        private int asteroidMax = 20;
 
         private int score = 0;
 

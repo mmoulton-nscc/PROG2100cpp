@@ -21,7 +21,7 @@ namespace AsteroidField
         private int yVelocity = 0;
         private int rotation = 0;
 
-        private bool mini = false;
+        //private bool mini = false;
 
         public bool destroy = false;
 
