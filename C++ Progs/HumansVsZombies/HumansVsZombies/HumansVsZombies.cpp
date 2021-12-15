@@ -51,6 +51,7 @@ int main()
         }
     }
 
+    //run until extinction event
     while (city->keepRunning())
     {
         city->reset();
