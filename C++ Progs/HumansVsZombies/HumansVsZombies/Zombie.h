@@ -16,6 +16,9 @@ public:
 	void turn();
 	char getSpecies();
 
+	//zombie methods
+	void starve();
+
 };
 
 #endif

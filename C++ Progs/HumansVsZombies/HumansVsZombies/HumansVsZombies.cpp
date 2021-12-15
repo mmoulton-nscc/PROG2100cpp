@@ -20,7 +20,7 @@ void ClearScreen()
 
 
 
-int main() 
+int main()
 {
     City* city = new City();
     chrono::milliseconds interval(PAUSE_MILLISECONDS);
@@ -64,16 +64,5 @@ int main()
         this_thread::sleep_for(interval);
     }
 
-    //while (city->keepRunning()) { //while both humans and zombies exist
-    //    this_thread::sleep_for(interval);
-    //    ClearScreen();
-    //    city->humansMove();
-    //    city->zombiesMoveEat();
-    //    city->humansRecruit();
-    //    city->zombiesRecruit();
-    //    city->zombiesStarve();
-    //    city->countOrganisms(Z or H goes here);
-
-    //    city->reset(); //resets moved flags
-}//end main
+}
 

@@ -133,13 +133,14 @@ void Human::spawn()
 
 void Human::turn()
 {
-	breedCounter += 1;
 	move();
 	if (breedCounter >= HUMAN_BREED)
 	{
 		spawn();
 	}
 	hasGone = true;
+	breedCounter += 1;
+
 }
 
 char Human::getSpecies()

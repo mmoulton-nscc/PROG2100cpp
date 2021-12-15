@@ -30,6 +30,7 @@ City::~City()
 	}
 }
 
+//gets organism from x,y
 Organism* City::getOrganism(int x, int y)
 {
 	if (x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT)
@@ -43,6 +44,7 @@ Organism* City::getOrganism(int x, int y)
 
 }
 
+//sets organism to x,y
 void City::setOrganism(Organism* organism, int x, int y)
 {
 	if (x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT)
@@ -51,9 +53,10 @@ void City::setOrganism(Organism* organism, int x, int y)
 	}
 }
 
+//keeps running until either humans or zombies are wiped out
 bool City::keepRunning()
 {
-	if (countHumans() == 0 && countZombies() == 0)
+	if (countHumans() == 0 || countZombies() == 0)
 	{
 		return false;
 	}
@@ -61,6 +64,7 @@ bool City::keepRunning()
 	return true;
 }
 
+//loops through grid and counts humans
 int City::countHumans()
 {
 	this->humans = 0;
@@ -81,6 +85,7 @@ int City::countHumans()
 	return this->humans;
 }
 
+//loops through grid and counts zombies
 int City::countZombies()
 {
 	this->zombies = 0;
@@ -101,6 +106,7 @@ int City::countZombies()
 	return this->zombies;
 }
 
+//loops through grid until all organisms say they've gone
 void City::turn()
 {
 	bool allGone = false;
@@ -126,6 +132,7 @@ void City::turn()
 	
 }
 
+//resets all organisms to not has gone
 void City::reset()
 {
 	for (int y = 0; y < GRID_HEIGHT; y++)
@@ -141,6 +148,7 @@ void City::reset()
 }
 
 
+//color for output
 void City::color(int color)
 {
 	HANDLE hconsole;
@@ -149,6 +157,8 @@ void City::color(int color)
 	return;
 }
 
+//loops through grid and prints corrisponding characters for each organism (in their color)
+//outputs count after grid
 ostream& operator<<(ostream& os, City& city)
 {
 	for (int y = 0; y < GRID_HEIGHT; y++)

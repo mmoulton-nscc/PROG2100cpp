@@ -21,7 +21,7 @@ protected:
 	bool hasGone;
 	City* city;
 
-	enum { NORTH, EAST, SOUTH, WEST, NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST };
+	enum { NORTH, EAST, SOUTH, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
 
 public:
 	Organism();
