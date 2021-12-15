@@ -1,10 +1,10 @@
 #include "Human.h"
 
-Human::Human()
+Human::Human() : Organism()
 {
 }
 
-Human::Human(City* city, int posx, int posy)
+Human::Human(City* cit, int posx, int posy) : Organism(cit, x, y)
 {
 }
 
@@ -14,9 +14,22 @@ Human::~Human()
 
 void Human::move()
 {
+
 }
 
-void Organism::spawn()
+void Human::spawn()
 {
 
 }
+
+void Human::turn()
+{
+
+}
+
+char Human::getSpecies()
+{
+	return HUMAN_CH;
+}
+
+

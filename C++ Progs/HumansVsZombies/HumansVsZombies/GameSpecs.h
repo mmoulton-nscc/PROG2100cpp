@@ -1,8 +1,7 @@
 #ifndef _GAMESPECS_H
 #define _GAMESPECS_H
 
-const int GRID_WIDTH = 20;
-const int GRID_HEIGHT = 20;
+
 const int GRIDSIZE = 20; // size of the square grid
 const int HUMAN_STARTCOUNT = 100; // inital Humans
 const int ZOMBIE_STARTCOUNT = 5; //initial Zombie count

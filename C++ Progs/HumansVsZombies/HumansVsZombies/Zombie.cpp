@@ -15,3 +15,16 @@ Zombie::~Zombie()
 void Zombie::move()
 {
 }
+
+void Zombie::spawn()
+{
+}
+
+void Zombie::turn()
+{
+}
+
+char Zombie::getSpecies()
+{
+	return 0;
+}

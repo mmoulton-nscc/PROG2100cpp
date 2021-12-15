@@ -15,7 +15,8 @@ void ClearScreen()
     cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
 
-int main() {
+int main() 
+{
     City* city = new City();
     chrono::milliseconds interval(PAUSE_MILLISECONDS);
 

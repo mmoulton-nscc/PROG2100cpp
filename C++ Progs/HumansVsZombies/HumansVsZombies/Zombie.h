@@ -10,7 +10,12 @@ public:
 	Zombie(City* city, int posx, int posy);
 	virtual ~Zombie();
 
+	//parent's virtual methods
 	void move();
+	void spawn();
+	void turn();
+	char getSpecies();
+
 };
 
 #endif

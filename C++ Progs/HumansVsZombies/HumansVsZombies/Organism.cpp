@@ -6,18 +6,25 @@ Organism::Organism()
 {
 	x = 0;
 	y = 0;
-	width = GRID_WIDTH;
-	height = GRID_HEIGHT;
+	breedCounter = 0;
+	starveCounter = 0;
+	hasGone = false;
+	width = GRIDSIZE;
+	height = GRIDSIZE;
 	city = NULL;
 }
 
-Organism::Organism(City* city, int posx, int posy)
+Organism::Organism(City* cit, int posx, int posy)
 {
 	x = posx;
 	y = posy;
-	width = GRID_WIDTH;
-	height = GRID_HEIGHT;
-	city = city;
+	breedCounter = 0;
+	starveCounter = 0;
+	hasGone = false;
+	width = GRIDSIZE;
+	height = GRIDSIZE;
+	city = cit;
+	cit->setOrganism(y, x, this);
 }
 
 Organism::~Organism()
@@ -28,4 +35,9 @@ void Organism::setPosition(int x, int y)
 {
 	this->x = x;
 	this->y = y;
+}
+
+bool Organism::getHasGone()
+{
+	return this->hasGone;
 }

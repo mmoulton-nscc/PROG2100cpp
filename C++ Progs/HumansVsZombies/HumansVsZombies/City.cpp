@@ -1,5 +1,4 @@
 #include "City.h"
-
 using namespace std;
 
 //Constructor
@@ -11,7 +10,9 @@ City::City()
 		{
 			grid[y][x] = NULL; 
 			// When I work with 2d arrays they always end up backwards
-			// So I started to do y,x instead of x,y and it works out haha 
+			// So I started to do y,x instead of x,y..
+			// it must be the order i do my for loops in
+			// oh well
 		}
 	}
 }
@@ -29,7 +30,6 @@ City::~City()
 		}
 	}
 }
-
 
 Organism* City::getOrganism(int x, int y)
 {
@@ -52,11 +52,6 @@ void City::setOrganism(Organism* organism, int x, int y)
 	}
 }
 
-void City::move(Organism* organism, int x, int y)
-{
-	
-}
-
 
 ostream& operator<<(ostream& os, City& city)
 {
@@ -66,11 +61,11 @@ ostream& operator<<(ostream& os, City& city)
 		{
 			if (city.getOrganism(y, x) == nullptr)
 			{
-				os << ".";
+				os << SPACE_CH;
 			}
 			else
 			{
-				os << city.getOrganism(y, x).getSpecies();
+				//os << city.getOrganism(y, x).getSpecies();
 			}
 		}
 		os << endl;

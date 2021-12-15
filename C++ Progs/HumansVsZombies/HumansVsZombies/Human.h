@@ -10,7 +10,12 @@ public:
 	Human(City* city, int posx, int posy);
 	virtual ~Human();
 
+
+	//parent's virtual methods
 	void move();
+	void spawn();
+	void turn();
+	char getSpecies();
 };
 
 #endif

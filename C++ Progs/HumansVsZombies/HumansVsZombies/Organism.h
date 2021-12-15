@@ -2,6 +2,7 @@
 #define _Organism_H
 
 #include <iostream>
+#include "GameSpecs.h"
 
 using namespace std;
 
@@ -14,9 +15,12 @@ protected:
 	int y;
 	int width;
 	int height;
+	int breedCounter;
+	int starveCounter;
+	bool hasGone;
 	City* city;
 
-	enum { WEST, NORTH, EAST, SOUTH, NUM_DIRECTIONS };
+	enum { NORTH, EAST, SOUTH, WEST, NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST };
 
 public:
 	Organism();
@@ -25,10 +29,12 @@ public:
 
 	virtual void move() = 0;
 	virtual void spawn() = 0;
-	virtual int getSpecies() = 0; //this could also be coded concrete here
-	virtual void getPosition() = 0;
+	virtual void turn() = 0;
+	virtual char getSpecies() = 0;
 
 	void setPosition(int x, int y);
+	bool getHasGone();
+
 };
 
 #endif
