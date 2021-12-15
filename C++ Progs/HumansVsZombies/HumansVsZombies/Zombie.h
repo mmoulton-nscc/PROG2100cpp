@@ -7,7 +7,7 @@ class Zombie : public Organism
 {
 public:
 	Zombie();
-	Zombie(City* city, int width, int height);
+	Zombie(City* city, int posx, int posy);
 	virtual ~Zombie();
 
 	void move();

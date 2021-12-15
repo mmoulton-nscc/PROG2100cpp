@@ -22,7 +22,7 @@ public:
 	Organism* getOrganism(int x, int y);
 	void setOrganism(Organism* organism, int x, int y);
 
-	void move();
+	void move(Organism* organism, int x, int y);
 
 	friend ostream& operator<<(ostream& output, City& city);
 

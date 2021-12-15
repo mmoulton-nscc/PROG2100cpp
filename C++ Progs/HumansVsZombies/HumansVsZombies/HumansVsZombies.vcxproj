@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="City.cpp" />
-    <ClCompile Include="GameSpecs.cpp" />
     <ClCompile Include="Human.cpp" />
     <ClCompile Include="HumansVsZombies.cpp" />
     <ClCompile Include="Organism.cpp" />
