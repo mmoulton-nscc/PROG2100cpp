@@ -18,7 +18,7 @@ Human::Human(City* cit, int posx, int posy)
 	width = GRIDSIZE;
 	height = GRIDSIZE;
 	city = cit;
-	cit->setOrganism(this, y, x);
+	cit->setOrganism(this, x, y);
 }
 
 Human::~Human()
@@ -29,7 +29,7 @@ void Human::move()
 {
 	//check adjacent spots for open cells
 	vector<int> openspots;
-	if (y + 1 <= height && city->getOrganism(x, y + 1) == NULL)
+	if (y + 1 < height && city->getOrganism(x, y + 1) == NULL)
 	{
 		openspots.push_back(NORTH);
 	}
@@ -37,11 +37,11 @@ void Human::move()
 	{
 		openspots.push_back(SOUTH);
 	}
-	if (x + 1 <= width && city->getOrganism(x + 1, y) == NULL)
+	if (x + 1 < width && city->getOrganism(x + 1, y) == NULL)
 	{
 		openspots.push_back(EAST);
 	}
-	if (y - 1 >= 0 && city->getOrganism(x - 1, y) == NULL)
+	if (x - 1 >= 0 && city->getOrganism(x - 1, y) == NULL)
 	{
 		openspots.push_back(WEST);
 	}
@@ -54,7 +54,7 @@ void Human::move()
 		shuffle(openspots.begin(), openspots.end(), default_random_engine(seed));
 
 		//set old cell to empty
-		this->city->setOrganism(NULL, x, y);
+		city->setOrganism(NULL, x, y);
 
 		//set new position to organism
 		switch (openspots[0])
@@ -69,12 +69,12 @@ void Human::move()
 			this->setPosition(x + 1, y);
 			break;
 		case WEST:
-			this->setPosition(x - 1, y + 1);
+			this->setPosition(x - 1, y);
 			break;
 		}
 
 		//reflect organism's new position in city grid
-		this->city->setOrganism(this, x, y);
+		city->setOrganism(this, x, y);
 	}
 
 }
@@ -83,7 +83,7 @@ void Human::spawn()
 {
 	//check adjust spots for open cells
 	vector<int> openspots;
-	if (y + 1 <= height && city->getOrganism(x, y + 1) == NULL)
+	if (y + 1 < height && city->getOrganism(x, y + 1) == NULL)
 	{
 		openspots.push_back(NORTH);
 	}
@@ -91,11 +91,11 @@ void Human::spawn()
 	{
 		openspots.push_back(SOUTH);
 	}
-	if (x + 1 <= width && city->getOrganism(x + 1, y) == NULL)
+	if (x + 1 < width && city->getOrganism(x + 1, y) == NULL)
 	{
 		openspots.push_back(EAST);
 	}
-	if (y - 1 >= 0 && city->getOrganism(x - 1, y) == NULL)
+	if (x - 1 >= 0 && city->getOrganism(x - 1, y) == NULL)
 	{
 		openspots.push_back(WEST);
 	}
@@ -116,21 +116,29 @@ void Human::spawn()
 			new Human(city, x, y + 1);
 			break;
 		case SOUTH:
-			new Human(city, x, y-1);
+			new Human(city, x, y - 1);
 			break;
 		case EAST:
-			new Human(city, x+1, y);
+			new Human(city, x + 1, y);
 			break;
 		case WEST:
-			new Human(city, x-1, y);
+			new Human(city, x - 1, y);
 			break;
 		}
+
+		//reset breed counter
+		breedCounter = 0;
+	}
 }
 
 void Human::turn()
 {
+	breedCounter += 1;
 	move();
-	spawn();
+	if (breedCounter >= HUMAN_BREED)
+	{
+		spawn();
+	}
 	hasGone = true;
 }
 

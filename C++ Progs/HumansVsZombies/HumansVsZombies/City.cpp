@@ -11,11 +11,7 @@ City::City()
 	{
 		for (int x = 0; x < GRID_WIDTH; x++)
 		{
-			grid[y][x] = NULL; 
-			// When I work with 2d arrays they always end up backwards
-			// So I started to do y,x instead of x,y..
-			// it must be the order i do my for loops in
-			// oh well
+			grid[x][y] = NULL; 
 		}
 	}
 }
@@ -26,9 +22,9 @@ City::~City()
 	{
 		for (int x = 0; x < GRID_WIDTH; x++)
 		{
-			if (this->grid[y][x] != NULL)
+			if (this->grid[x][y] != NULL)
 			{
-				delete(grid[y][x]);
+				delete(grid[x][y]);
 			};
 		}
 	}
@@ -36,9 +32,9 @@ City::~City()
 
 Organism* City::getOrganism(int x, int y)
 {
-	if (x > 0 && x <= GRID_WIDTH && y > 0 && y <= GRID_HEIGHT)
+	if (x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT)
 	{
-		return this->grid[y][x];
+		return this->grid[x][y];
 	}
 	else
 	{
@@ -49,9 +45,9 @@ Organism* City::getOrganism(int x, int y)
 
 void City::setOrganism(Organism* organism, int x, int y)
 {
-	if (x > 0 && x <= GRID_WIDTH && y > 0 && y <= GRID_HEIGHT)
+	if (x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT)
 	{
-		this->grid[y][x] = organism;
+		this->grid[x][y] = organism;
 	}
 }
 
@@ -72,9 +68,9 @@ int City::countHumans()
 	{
 		for (int x = 0; x < GRID_WIDTH; x++)
 		{
-			if (this->getOrganism(y, x) != nullptr)
+			if (this->getOrganism(x, y) != nullptr)
 			{
-				if (this->getOrganism(y, x)->getSpecies() == HUMAN_CH)
+				if (this->getOrganism(x, y)->getSpecies() == HUMAN_CH)
 				{
 					this->humans += 1;
 				}
@@ -92,9 +88,9 @@ int City::countZombies()
 	{
 		for (int x = 0; x < GRID_WIDTH; x++)
 		{
-			if (this->getOrganism(y, x) != nullptr)
+			if (this->getOrganism(x, y) != nullptr)
 			{
-				if (this->getOrganism(y, x)->getSpecies() == ZOMBIE_CH)
+				if (this->getOrganism(x, y)->getSpecies() == ZOMBIE_CH)
 				{
 					this->zombies += 1;
 				}
@@ -116,11 +112,11 @@ void City::turn()
 		{
 			for (int x = 0; x < GRID_WIDTH; x++)
 			{
-				if (this->getOrganism(y, x) != nullptr)
+				if (this->getOrganism(x, y) != nullptr)
 				{
-					if (!this->getOrganism(y, x)->getHasGone())
+					if (!this->getOrganism(x, y)->getHasGone())
 					{
-						this->getOrganism(y, x)->turn();
+						this->getOrganism(x, y)->turn();
 						allGone = false;
 					}
 				}
@@ -136,9 +132,9 @@ void City::reset()
 	{
 		for (int x = 0; x < GRID_WIDTH; x++)
 		{
-			if (this->getOrganism(y, x) != nullptr)
+			if (this->getOrganism(x, y) != nullptr)
 			{
-				this->getOrganism(y, x)->flipHasGone();
+				this->getOrganism(x, y)->flipHasGone();
 			}
 		}
 	}
@@ -159,14 +155,14 @@ ostream& operator<<(ostream& os, City& city)
 	{
 		for (int x = 0; x < GRID_WIDTH; x++)
 		{
-			if (city.getOrganism(y, x) == nullptr)
+			if (city.getOrganism(x, y) == nullptr)
 			{
 				city.color(BASIC_COLOR);
 				os << SPACE_CH;
 			}
 			else
 			{
-				char c = city.getOrganism(y, x)->getSpecies();
+				char c = city.getOrganism(x, y)->getSpecies();
 				if (c == HUMAN_CH)
 				{
 					city.color(HUMAN_COLOR);

@@ -33,7 +33,7 @@ int main()
         int y = rand() % GRID_HEIGHT;
         int x = rand() % GRID_WIDTH;
 
-        if (city->getOrganism(y, x) == NULL)
+        if (city->getOrganism(x, y) == NULL)
         {
             Human* hume = new Human(city, x, y);
         }
@@ -45,7 +45,7 @@ int main()
         int y = rand() % GRID_HEIGHT;
         int x = rand() % GRID_WIDTH;
 
-        if (city->getOrganism(y, x) == NULL)
+        if (city->getOrganism(x, y) == NULL)
         {
             Zombie* zomb = new Zombie(city, x, y);
         }
@@ -53,7 +53,10 @@ int main()
 
     while (city->keepRunning())
     {
+        city->reset();
         ClearScreen();
+        city->turn();
+
         cout << *city;
         cout << "               GENERATION " << loopcount;
 
