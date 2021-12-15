@@ -14,6 +14,8 @@ class City
 {
 protected:
 	Organism* grid[GRID_HEIGHT][GRID_WIDTH];
+	int humans = 0;
+	int zombies = 0;
 
 public:
 	City();
@@ -22,7 +24,17 @@ public:
 	Organism* getOrganism(int x, int y);
 	void setOrganism(Organism* organism, int x, int y);
 
+	bool keepRunning();
+	int countHumans();
+	int countZombies();
+
+	void turn();
+	void reset();
+
+	void color(int color);
+
 	friend ostream& operator<<(ostream& output, City& city);
+
 
 };
 

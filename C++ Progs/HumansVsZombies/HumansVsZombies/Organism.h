@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "GameSpecs.h"
+#include <vector>
 
 using namespace std;
 
@@ -33,6 +34,7 @@ public:
 	virtual char getSpecies() = 0;
 
 	void setPosition(int x, int y);
+	void flipHasGone();
 	bool getHasGone();
 
 };

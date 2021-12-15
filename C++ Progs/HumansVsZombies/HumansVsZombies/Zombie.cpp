@@ -1,11 +1,22 @@
 #include "Zombie.h"
+#include "City.h"
 
-Zombie::Zombie()
+Zombie::Zombie() : Organism()
 {
 }
 
-Zombie::Zombie(City* city, int posx, int posy)
+Zombie::Zombie(City* cit, int posx, int posy)
 {
+	x = posx;
+	y = posy;
+	breedCounter = 0;
+	starveCounter = 0;
+	hasGone = false;
+	width = GRIDSIZE;
+	height = GRIDSIZE;
+	city = cit;
+	cit->setOrganism(this, y, x);
+
 }
 
 Zombie::~Zombie()
@@ -26,5 +37,5 @@ void Zombie::turn()
 
 char Zombie::getSpecies()
 {
-	return 0;
+	return ZOMBIE_CH;
 }

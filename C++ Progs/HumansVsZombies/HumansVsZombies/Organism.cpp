@@ -1,4 +1,5 @@
 #include "Organism.h"
+#include "City.h"
 #include "GameSpecs.h"
 using namespace std;
 
@@ -24,7 +25,6 @@ Organism::Organism(City* cit, int posx, int posy)
 	width = GRIDSIZE;
 	height = GRIDSIZE;
 	city = cit;
-	cit->setOrganism(y, x, this);
 }
 
 Organism::~Organism()
@@ -35,6 +35,11 @@ void Organism::setPosition(int x, int y)
 {
 	this->x = x;
 	this->y = y;
+}
+
+void Organism::flipHasGone()
+{
+	this->hasGone = !(this->hasGone);
 }
 
 bool Organism::getHasGone()
